@@ -9,7 +9,10 @@ TrueNAS custom app, which cannot build images, can run it.
 MinIO migration scripts (`s3-guard.sh`, `migrate-s3.sh`), which a new
 network does not need. The Dockerfile is upstream's `Dockerfile-any-sync-init`
 with two changes: the base image `any-sync-tools` is pinned to v0.7.0 by
-digest, and `yq` is pinned to v4.54.1 instead of "latest".
+digest, and `yq` is pinned to v4.54.1 instead of "latest". One change to the
+node config templates: `quic.initialPacketSize: 1200` in all six, so QUIC
+works through a Tailscale route (1,280-byte MTU); quic-go's default first
+packet is 1,308 bytes as IP.
 
 ## Use
 

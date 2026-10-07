@@ -16,6 +16,10 @@ quic:
         - %ANY_SYNC_NODE_2_QUIC_ADDRESSES%
     writeTimeoutSec: 10
     dialTimeoutSec: 10
+    # The Tailscale route carries IP packets of at most 1,280 bytes; quic-go's
+    # default first packet (1,280 bytes of UDP payload) is 1,308 as IP and is
+    # dropped. 1,200 matches what anytype-heart clients use.
+    initialPacketSize: 1200
 
 space:
     gcTTL: 60
